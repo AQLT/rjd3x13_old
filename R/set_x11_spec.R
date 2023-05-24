@@ -132,13 +132,13 @@ set_x11.JD3_X11_SPEC <- function(x,
   if (!is.na(exclude.forecast) && is.logical(exclude.forecast)) {
     x$excludefcasts <- exclude.forecast
   }
-  if (!is.na(sigma.vector) && is.integer(sigma.vector)) {
-    if (all(sigma.vector %in% c(1, 2))) {
+  if (!any(is.na(sigma.vector))) {
+    if (!all(sigma.vector %in% c(1, 2))) {
       warning("sigma.vector must be equal to 1 or 2")
     } else if (x$sigma != "SELECT"){
       warning("calendar.sigma must be equal to SELECT to set sigma.vector")
     } else {
-      x$vsigmas <- sigma.vector
+      x$vsigmas <- as.integer(sigma.vector)
     }
   }
   if (!is.na(bias)) {
